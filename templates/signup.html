@@ -1,0 +1,39 @@
+
+{% include "header.html" %}
+<body>
+  <div class="container col-6 offset-3 mt-3">
+  	<h2>Create Your Account</h2><hr>
+	<form method="post" action="/signup">
+		{% if error %}
+			<div class="alert alert-danger">{{error}}</div>
+		{% endif %}
+		<div class="row justify-content-center">
+			<div class="col-6">
+				<input type="text" name="firstName" class="form-control" placeholder="*First Name" required>
+			</div>
+			<div class="col-6">
+				<input type="text" name="lastName" class="form-control" placeholder="Last Name">
+			</div>
+		</div>
+		  <div class="row mt-3">
+		  	<div class="col-12">
+		    	<input type="email" required class="form-control" name="email" aria-describedby="emailHelp" placeholder="*Enter email">
+			</div>
+		  </div>
+		  	<div class="row mt-3">
+		  	<div class="col-6">
+		    	<input type="password" required class="form-control" name="password" placeholder="*Enter password">
+			</div>
+			<div class="col-6">
+		    	<input type="password" required class="form-control" name="confirmPassword" placeholder="*Confirm password">
+			</div>
+		  </div>
+		  <div class="row my-3">
+		  	<div class="col-12">
+		    	<input type="number" required class="form-control" name="mobile" aria-describedby="emailHelp" placeholder="*Enter Mobile Number">
+			</div>
+		  </div>
+	  <button type="submit" class="btn btn-primary">Submit</button>
+	</div>
+	</form>
+  </div>

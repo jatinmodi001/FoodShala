@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Khao Piyo</title>
+<link href="{{ url_for('static',filename = 'css/bootstrap.css') }}" rel="stylesheet">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="/">Khao Piyo</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Menu</a>
+      </li>
+    </ul>
+    {% if loggedIn == Null or Logged == False %}
+    <div>
+      <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/login">Login</a>
+      </li>
+      </ul>
+    {% endif %}
+    {% if loggedIn %}
+    <div>
+      <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href='/profile'>Profile</a>
+      </li>
+    </ul>
+    {% endif %}
+    </div>
+  </div>
+</nav>

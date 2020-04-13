@@ -1,0 +1,25 @@
+{% include "header.html" %}
+
+<body>
+  <div class="container col-6 offset-3 mt-3">
+  	<h2>Login To Your Account</h2><hr>
+	<form method="post" action="/login">
+		{% if error %}
+			<div class="alert alert-danger">{{error}}</div>
+		{% endif %}
+	  <div class="form-group">
+	    <label for="email">Email address</label>
+	    <input type="email" required class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+	  </div>
+	  <div class="form-group">
+	    <label for="pass">Password</label>
+	    <input type="password" class="form-control" id="pass" name="password" placeholder="Password" required>
+	  </div>
+	  <div class="d-flex justify-content-between">
+	  <button type="submit" class="btn btn-primary" onclick="submitHandle()">Submit</button>
+	  <a href="/signup" class="text-dark" style="text-decoration: none">Don't have a account</a>
+	</div>
+	</form>
+  </div>
+</body>
+	
