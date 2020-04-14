@@ -1,12 +1,13 @@
 {% include "header.html" %}
-<body>
-  <div id="content">
-    {% include "home.html" %}
-  </div>
+	{% if loggedIn== False %}
+    	{% include "landing.html" %}
+    {% endif %}
+    {% if loggedIn== True %}
+    	{% include "home.html" %}
+    {% endif %}
   <div class="container">
     {% block footer %}
     &copy; Copyright 2020 by <a href="https://www.github.com/jatinmodi001">Jatin Modi</a>
     {% endblock %}
   </div>
-</body>
 </html>

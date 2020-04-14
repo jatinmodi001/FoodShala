@@ -5,25 +5,27 @@
 <link href="{{ url_for('static',filename = 'css/bootstrap.css') }}" rel="stylesheet">
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="/">Khao Piyo</a>
+  <a class="navbar-brand" href="/">FoodShala</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    {% if loggedIn %}
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
         <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Menu</a>
+        <a class="nav-link" href="/menu">Menu</a>
       </li>
     </ul>
-    {% if loggedIn == Null or Logged == False %}
-    <div>
-      <ul class="navbar-nav mr-auto">
+    {% endif %}
+    {% if loggedIn == Null or loggedIn == False %}
+    <div class="ml-auto">
+      <ul class="navbar-nav ">
       <li class="nav-item">
-        <a class="nav-link" href="/login">Login</a>
+        <a class="nav-link" href="/customerlogin">Login</a>
       </li>
       </ul>
     {% endif %}

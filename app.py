@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request,session,redirect,url_for, flash
+from flask import Flask, render_template, request,session,redirect,url_for, flash, Response
 import os
 from markupsafe import escape
 from flask_sqlalchemy import SQLAlchemy
@@ -30,10 +30,18 @@ class Users(db.Model):
 @app.route("/")
 def index():
 	if 'email' in session:
-		return render_template("index.html",loggedIn=True)
-	return redirect("/login")
+		user = Users.query.filter_by(email=session['email']).first()
+		return render_template("index.html",loggedIn=True,user=user)
+	return render_template("index.html",loggedIn=False)
 
-@app.route("/login",methods=['POST','GET'])
+
+@app.route("/menu",methods=['GET'])
+def menu():
+	if 'email' in session:
+		return render_template("menu.html",loggedIn=True)
+	return redirect("/")
+
+@app.route("/customerlogin",methods=['POST','GET'])
 def login():
 
 	if request.method == 'GET' and 'email' in session :
@@ -67,7 +75,7 @@ def signup():
 				db.session.add(newUser)
 				db.session.commit()
 				#session['email'] = newUser.email
-				return redirect('/')
+				return Response('/')
 			except:
 				print("ERROR")
 				return render_template('signup.html')
@@ -82,18 +90,37 @@ def checkSession():
 
 @app.route("/profile")
 def profile():
-	email = session['email']
-	user = Users.query.filter_by(email=email).first()
-	#print(user)
-	return render_template("profile.html",loggedIn=checkSession(),user=user)
+	if checkSession():
+		user = Users.query.filter_by(email=email).first()
+		return render_template("profile.html",loggedIn=checkSession(),user=user)
+	else :
+		return redirect("/customerlogin")
 
 @app.route("/logout")
 def logout():
 	session.pop("email",None)
-	return redirect("/login")
+	return redirect("/customerlogin")
 
-def submitHandle():
-	print("hello")
+def checkAdmin():
+	if 'admin' in session:
+		return True
+	return False
+
+@app.route("/admin",methods=['POST','GET'])
+def admin():
+	if checkAdmin():
+		return render_template("admin.html")
+
+
+
+@app.route("/restaurantlogin",methods=['POST','GET'])
+def restaurantLogin():
+	if request.method == 'POST':
+		print(request.form)
+		if request.form['username'] == 'admin' and request.form['password'] == 'admin':
+			session['admin'] = True
+			return redirect("/admin")
+	return render_template("restaurantLogin.html")
 
 if __name__ == "__main__":
 	db.create_all()

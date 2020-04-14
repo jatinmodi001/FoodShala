@@ -3,20 +3,20 @@
 	<div class="row mt-4">
 		<div class="card col-3 offset-1">
   			<div class="card-body text-info">
-    			<h3 class="card-title">{{user.firstName}} {{user.lastName}}</h3>
+    			<h3 class="card-title text-capitalize">{{user.firstName}} {{user.lastName}}</h3>
     			<h5 class="card-subtitle">{{user.email}}</h5>
     			<h6><i>+91-{{user.mobile}}</i></h6>
   			</div>
 
 		</div>		
-		<div class="card col-7 ">
+		<div class="card col-7 ml-3">
   			<div class="card-body">
   				<a class="text-light bg-info btn btn-primary">Order History</a>
   			</div>
   			
 		</div>		
 	</div>
-	<div class="row">
+	<div class="row mt-3">
 		<div class="card col-10 offset-1" >
           <div class="card-body">
             <h6 class="card-title text-muted"  style="letter-spacing:2px"><b>USER INFORMATION</b></h6>
@@ -28,7 +28,7 @@
                 </div>
                 <div class="col-5 offset-1 form-group">
                     <b style="font-size:15px" class="text-info">FULL NAME</b>
-                    <h6>{{user.firstName}} {{user.lastName}}</h6>
+                    <h6 class="text-capitalize">{{user.firstName}} {{user.lastName}}</h6>
                     <hr/>
                 </div>
             </div>
@@ -40,7 +40,11 @@
                 </div>
             </div>
           </div>
-        </div>		
+        </div>
+
 	</div>
+          <div class="mt-4 col-3 offset-4">
+          <a href="/logout" class="btn btn-block btn-danger">LOGOUT</a>
+        </div>    
 
 </div>
