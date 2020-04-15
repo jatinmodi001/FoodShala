@@ -6,8 +6,15 @@
   	<h2>Customer Login</h2>
   	<a class="text-dark" href="/restaurantlogin">Login as restaurant</a>
   </div>
+      	  	{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-success">{{ message }}</div>	
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
   	<hr>
-
 	<form method="post" action="/customerlogin">
 		{% if error %}
 			<div class="alert alert-danger">{{error}}</div>

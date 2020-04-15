@@ -1,13 +1,8 @@
 {% include "header.html" %}
-	{% if loggedIn== False %}
-    	{% include "landing.html" %}
-    {% endif %}
-    {% if loggedIn== True %}
-    	{% include "home.html" %}
-    {% endif %}
-  <div class="container">
-    {% block footer %}
-    &copy; Copyright 2020 by <a href="https://www.github.com/jatinmodi001">Jatin Modi</a>
-    {% endblock %}
+    {% include "landing.html" %}
+  <div class="footer fixed-bottom">
+  	<div class="bg-dark text-center text-light p-3">
+    	&copy; Copyright 2020 by <a href="https://www.github.com/jatinmodi001">Jatin Modi</a>
+    </div>
   </div>
 </html>

@@ -1,0 +1,34 @@
+{% include "header.html" %}
+	{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <div class="text-center alert alert-success">{{ message }}</div>	
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+<div class="container mt-2">
+
+			{% for x in items %}
+				<div class="col-12 px-5">
+					{% if loop.changed(x[1]) %}
+						<h5 class="pt-3">{{ x[1] }} (In UTC)</h5>
+						<hr>
+					{% endif %}
+					<div class="d-flex justify-content-between">
+						<div>
+							<span class="text-capitalize">
+							{% if x[0].veg %}
+								<img style="width:2.6ch;padding: 1px;background-color: white" src="{{ url_for('static',filename='images/vegg.png') }}">
+							{% endif %}
+							{% if not x[0].veg %}
+								<img style="width:2.6ch;padding: 1px;background-color: white" src="{{ url_for('static',filename='images/nonVeg.png') }}">
+							{% endif %}{{x[0].name}}</span>
+							<span class="text-capitalize">(Restaurant : {{x[0].restaurantName}})</span>
+						</div>
+					<span>Rs. {{x[0].price}}/-</span>
+				</div>
+				</div>
+			{% endfor %}
+
+</div>

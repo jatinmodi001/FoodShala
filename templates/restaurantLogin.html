@@ -4,15 +4,25 @@
   <div class="container col-6 offset-3 mt-3">
 	<div class="d-flex justify-content-between">
   	<h2>Restaurant Login</h2>
+
   	<a class="text-dark" href="/customerlogin">Login as Customer</a>
-  </div><hr>
+  </div>
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-success">{{ message }}</div>	
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+  <hr>
 	<form method="post" action="/restaurantlogin">
 		{% if error %}
 			<div class="alert alert-danger">{{error}}</div>
 		{% endif %}
 	  <div class="form-group">
-	    <label for="Username">Username address</label>
-	    <input required class="form-control" name="username" id="username" aria-describedby="emailHelp" placeholder="Enter Username">
+	    <label for="Username">Email Id</label>
+	    <input required class="form-control" name="email" id="email" type="email" aria-describedby="emailHelp" placeholder="Enter Email Id">
 	  </div>
 	  <div class="form-group">
 	    <label for="pass">Password</label>
@@ -20,6 +30,7 @@
 	  </div>
 	  <div class="d-flex justify-content-between">
 	  <button type="submit" class="btn btn-primary" onclick="submitHandle()">Submit</button>
+	  <a href="restaurantsignup">Create Restaurant Account</a>
 	</div>
 	</form>
   </div>

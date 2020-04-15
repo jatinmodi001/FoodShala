@@ -1,0 +1,53 @@
+{% include "restaurantHeader.html" %}
+<div class="container mt-3">
+<h2 class="text-center">All Dishes</h2><hr>
+          {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <div class="text-center alert alert-success">{{ message }}</div>  
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+<table class="table table-bordered table-hover table-dark">
+  		<thead>
+  			<tr>
+  				<th>Dish Name</th>
+  				<th>Price</th>
+  				<th>Type</th>
+  				<th>Options</th>
+  			</tr>
+  		</thead>
+  		<tbody>
+  			{% for x in items %}
+  			<tr>
+  				<td>{{x.name}}</td>
+  				<td>{{x.price}}</td>
+  				<td>{{x.dishtype}}</td>
+  				<td><button onclick="deleteItem({{ x.id }})" class="btn btn-danger">Delete</button>
+  					<button class="btn btn-primary">Edit</button></td>
+  			</tr>
+  			{% endfor %}
+  		</tbody>
+  	</table>
+  </div>
+
+  <script>
+    function deleteItem(id)
+    {
+      console.log(id)
+      fetch("/deleteitem",{
+        method : "POST",  
+        headers: new Headers({
+              "content-type": "application/json"
+          }),
+        body : id
+      })
+      .then(res=>res.json())
+      .then(res=>{
+        alert(res.data)
+        if(res.data == 'deleted')
+          location.reload()
+      })
+    }
+  </script>

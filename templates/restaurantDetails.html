@@ -1,17 +1,22 @@
-{% include "header.html" %}
+{% include "restaurantHeader.html" %}
+
 <div class="container">
+	{% if error %}
+		<div class="alert alert-danger text-center mt-2">{{error}}</div>
+	{% endif %}
+	<div class="container">
 	<div class="row mt-4">
 		<div class="card col-3 offset-1">
   			<div class="card-body text-info">
-    			<h3 class="card-title text-capitalize">{{user.firstName}} {{user.lastName}}</h3>
-    			<h5 class="card-subtitle">{{user.email}}</h5>
-    			<h6><i>+91-{{user.mobile}}</i></h6>
+    			<h3 class="card-title text-capitalize">{{restaurant.name}}</h3>
+    			<h5 class="card-subtitle">{{restaurant.email}}</h5>
+    			<h6><i>+91-{{restaurant.mobile}}</i></h6>
   			</div>
 
 		</div>		
 		<div class="card col-7 ml-3">
   			<div class="card-body">
-  				<a class="text-light bg-info btn btn-primary" href="/orderhistory">Order History</a>
+  				<a class="text-light bg-info btn btn-primary">Order History</a>
   			</div>
   			
 		</div>		
@@ -19,23 +24,23 @@
 	<div class="row mt-3">
 		<div class="card col-10 offset-1" >
           <div class="card-body">
-            <h6 class="card-title text-muted"  style="letter-spacing:2px"><b>USER INFORMATION</b></h6>
+            <h6 class="card-title text-muted"  style="letter-spacing:2px"><b>RESTAURANT INFORMATION</b></h6>
             <div class="form-row">
                 <div class="col-5 form-group">
-                    <b class="text-info">EMAIL</b>
-                    <h6>{{user.email}}</h6>
+                    <b class="text-info">OWNER EMAIL</b>
+                    <h6>{{restaurant.email}}</h6>
                     <hr/>
                 </div>
                 <div class="col-5 offset-1 form-group">
-                    <b style="font-size:15px" class="text-info">FULL NAME</b>
-                    <h6 class="text-capitalize">{{user.firstName}} {{user.lastName}}</h6>
+                    <b style="font-size:15px" class="text-info">OWNER FULL NAME</b>
+                    <h6 class="text-capitalize">{{restaurant.ownerFirstName}} {{restaurant.ownerLastName}}</h6>
                     <hr/>
                 </div>
             </div>
             <div class="form-row">
                 <div class="col-5 form-group">
                     <b style="font-size : 15px" class="text-info">MOBILE</b>
-                    <h6>+91-{{user.mobile}}</h6>
+                    <h6>+91-{{restaurant.mobile}}</h6>
                     <hr/>
                 </div>
             </div>
@@ -48,3 +53,7 @@
         </div>    
 
 </div>
+	</div>
+
+
+  	

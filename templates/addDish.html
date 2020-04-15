@@ -1,0 +1,27 @@
+{% include "restaurantHeader.html" %}
+
+<form method="POST" action="/add_dish">
+	{% if error %}
+			<div class=" text-center alert alert-danger">{{error}}</div>
+		{% endif %}
+  		<div class="row mt-4 justify-content-center">
+
+	  		<div class="col-3">
+	  			<input required id="name" placeholder="*Enter Dish Name" class="form-control" type="text" name="name">
+	  		</div>
+	  		<div class="col-3">
+	  			<input required id="price" placeholder="*Enter Price" class="form-control" type="number" name="price">
+	  		</div>
+	  		<div class="col-3">
+	  			<input required id="type" class="form-control" placeholder="*Enter Dish Type eg.(Mocktail, SouthIndian)" type="text" name="type">
+	  		</div>
+	  		<div class="col-2">
+	  			<input type="radio" name="category" value="Veg" required>Veg
+	  			<input type="radio" name="category" value="Non Veg" required>Non-Veg
+	  		</div>
+  		</div>
+  		<div class="d-flex justify-content-center">
+  			<button type="submit" class="btn btn-info mt-3">Add Dish</button>
+  		</div>
+  	</form>
+  </div>

@@ -1,1 +1,47 @@
-{% include "header.html "%}
+{% include "header.html" %}
+
+<div class="container mt-3">
+	{% for x in items %}
+		{% if loop.changed(x.dishtype) %}
+			<h2 class=" text-center text-dark text-capitalize my-2"><span class="badge badge-warning"> {{x.dishtype}} </span></h2>
+		{% endif %}
+	<div class="rounded mt-1 d-flex justify-content-between p-2 bg-info text-light">
+		<div>
+			{% if x.veg %}
+				<img style="width:2.6ch;padding: 1px;background-color: white" src="{{ url_for('static',filename='images/vegg.png') }}">
+			{% endif %}
+			{% if not x.veg %}
+				<img style="width:2.6ch;padding: 1px;background-color: white" src="{{ url_for('static',filename='images/nonVeg.png') }}">
+			{% endif %}
+			<span class="text-capitalize"><b>{{ x.name }}</b></span>
+			<span>(Restaurant : {{x.restaurantName}})</span>
+		</div>
+		<div>
+			<b>Rs. {{x.price}}/- </b>&ensp;
+			<button title="Add to Cart" class="btn btn-sm border-warning btn-success" onclick="addToCartHandle({{ x.id }}, {{ x.restaurantId }})"><i class="fas fa-cart-plus"></i></button>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+<script >
+	function addToCartHandle(itemId, restaurantId)
+	{
+		//console.log(id,restaurantId)
+		const data = {
+			itemId : itemId,
+			restaurantId : restaurantId
+		}
+		fetch("/add_to_cart",{
+			method : 'POST',
+			headers  : new Headers({
+				"content-type" : "application/json"
+			}),
+			body : JSON.stringify(data)
+			
+		})
+		.then(res=>res.json())
+		.then(res=>{
+			alert(res.message)
+		})
+	}
+</script>
