@@ -1,11 +1,20 @@
 {% include "header.html" %}
 
-<div class="container mt-3 mb-5" style="min-height: 100vh;position: relative;">
+<div class="container mt-3" style="min-height: 100vh;position: relative;">
+		<div class="card col-3 p-0 m-0">
+  			<div class="card-body text-info">
+    			<h1 class="card-title font-weight-bold text-capitalize">{{restaurant.name}}</h1>
+    			<h5 class="card-subtitle">{{restaurant.email}}</h5>
+    			<h6>Owned By : {{restaurant.ownerFirstName}} {{restaurant.ownerLastName}}</h6>
+    			<h6><i>+91-{{restaurant.mobile}}</i></h6>
+    			<h6>Address : <i>{{restaurant.address}}</i></h6>
+  			</div>
+	</div>
 	{% for x in items %}
 		{% if loop.changed(x.dishtype) %}
 			<h2 class=" text-center text-dark text-capitalize my-2"><span class="badge badge-warning"> {{x.dishtype}} </span></h2>
 		{% endif %}
-	<div class="rounded mt-1 d-flex justify-content-between p-2 bg-info text-light">
+	<div class="rounded mt-1 d-flex justify-content-between p-2 bg-dark text-light">
 		<div>
 			{% if x.veg %}
 				<img style="width:2.6ch;padding: 1px;background-color: white" src="{{ url_for('static',filename='images/vegg.png') }}">

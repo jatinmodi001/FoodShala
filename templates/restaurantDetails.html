@@ -1,6 +1,6 @@
 {% include "restaurantHeader.html" %}
 
-<div class="container">
+<div class="container" style="min-height: 100vh;position: relative;">
 	{% if error %}
 		<div class="alert alert-danger text-center mt-2">{{error}}</div>
 	{% endif %}
@@ -57,3 +57,4 @@
 
 
   	
+    {% include "footer.html" %}

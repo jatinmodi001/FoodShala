@@ -1,35 +1,65 @@
 {% include "header.html" %}
 
-<div class="container mt-4">
-	<table class="table table-hover table-bordered">
-		<thead class="thead-dark">
-			<tr>
-				<th>Dish Name</th>
-				<th>Restaurant</th>
-				<th>Price</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for x in items %}
-			<tr>
-				<td>{% if x.veg %}
-						<img style="width:2.6ch;padding: 1px;background-color: white" src="{{ url_for('static',filename='images/vegg.png') }}">
-					{% endif %}
-					{% if not x.veg %}
-						<img style="width:2.6ch;padding: 1px;background-color: white" src="{{ url_for('static',filename='images/nonVeg.png') }}">
-					{% endif %}{{x.name}}</td>
-				<td>{{x.restaurantName}}</td>
-				<td>Rs. {{x.price}}/-</td>
-			<tr>
-			{% endfor %}
-		</tbody>
-	</table>
-	<div class="d-flex justify-content-end">
-		<h2>Total Amount : Rs. {{totalPrice}}/-</h2>
-	</div>
-	<div class="text-center">
-		<form method="POST" action="/placeorder">
-			<button type="submit" class="btn btn-lg btn-success"><b>Place Order</b></button>
-		</form>
-	</div>
+<div class="container mt-4" style="min-height: 100vh;position: relative;">
+	{% if not items %}
+		<h1 class="text-center display-4"><i class="fas fa-shopping-cart text-danger display-4"></i> Looks like your cart is empty !!</h1>
+	{% endif %}
+	{% if items %}
+		<table class="table table-hover table-bordered">
+			<thead class="thead-dark">
+				<tr>
+					<th>Dish Name</th>
+					<th>Restaurant</th>
+					<th>Price</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for x in items %}
+				<tr>
+					<td>{% if x.veg %}
+							<img style="width:2.6ch;padding: 1px;background-color: white" src="{{ url_for('static',filename='images/vegg.png') }}">
+						{% endif %}
+						{% if not x.veg %}
+							<img style="width:2.6ch;padding: 1px;background-color: white" src="{{ url_for('static',filename='images/nonVeg.png') }}">
+						{% endif %}{{x.name}}</td>
+					<td>{{x.restaurantName}}</td>
+					<td>Rs. {{x.price}}/-</td>
+					<td><button class="btn btn-danger" onclick="deleteItem({{x.id}})">Delete</button></td>
+				<tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<div class="d-flex justify-content-end">
+			<h2>Total Amount : Rs. {{totalPrice}}/-</h2>
+		</div>
+		<div class="text-center">
+			<form method="POST" action="/placeorder">
+				<button type="submit" class="btn btn-lg btn-success"><b>Place Order</b></button>
+			</form>
+		</div>
+		{% endif %}
 </div>
+{% include "footer.html" %}
+<script type="text/javascript">
+	function deleteItem(id)
+	{
+		console.log(id)
+		fetch("/deletefromcart",{
+			method:"POST",
+			body : id,
+			headers : new Headers({
+				'content-type' : 'application/json'
+			})
+		})
+		.then(res=>res.json())
+		.then(res=>{
+			if(res.message = 'Item deleted from cart')
+			{
+				location.reload()
+			}
+			alert(res.message)
+			
+		})
+	}
+</script>

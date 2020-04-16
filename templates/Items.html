@@ -1,5 +1,5 @@
 {% include "restaurantHeader.html" %}
-<div class="container mt-3">
+<div class="container mt-3" style="min-height: 100vh;position: relative;">
 <h2 class="text-center">All Dishes</h2><hr>
           {% with messages = get_flashed_messages() %}
   {% if messages %}
@@ -25,13 +25,12 @@
   				<td>{{x.price}}</td>
   				<td>{{x.dishtype}}</td>
   				<td><button onclick="deleteItem({{ x.id }})" class="btn btn-danger">Delete</button>
-  					<button class="btn btn-primary">Edit</button></td>
   			</tr>
   			{% endfor %}
   		</tbody>
   	</table>
   </div>
-
+{% include "footer.html" %}
   <script>
     function deleteItem(id)
     {

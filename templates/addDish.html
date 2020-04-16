@@ -1,6 +1,6 @@
 {% include "restaurantHeader.html" %}
 
-<form method="POST" action="/add_dish">
+<form method="POST"style="min-height: 100vh;position: relative;" action="/add_dish">
 	{% if error %}
 			<div class=" text-center alert alert-danger">{{error}}</div>
 		{% endif %}
@@ -25,3 +25,4 @@
   		</div>
   	</form>
   </div>
+  {% include "footer.html" %}

@@ -76,7 +76,8 @@ def checkRestaurant():
 def home():
 	if checkSession():
 		user = Users.query.filter_by(email=session['email']).first()
-		return render_template("home.html",user=user)
+		restaurants = Restaurants.query.all()
+		return render_template("home.html",user=user,restaurants=restaurants)
 	return redirect("/customerlogin")
 
 @app.route("/menu",methods=['GET'])
@@ -153,7 +154,7 @@ def addToCart():
 				db.session.commit()
 			except ValueError:
 				print(ValueError)
-			return ({'message' : 'Item Added'})
+			return ({'message' : 'Item Added In Your Cart'})
 		else : 
 			return ({'message' : 'Item Already In Your Cart'})
 	return ({'message':'Login First'})
@@ -203,6 +204,28 @@ def placeOrder():
 		flash("Order Placed")
 		return redirect("/orderhistory")
 	return redirect("/")
+
+
+@app.route("/restaurant/<id>")
+def restaurantMenu(id):
+	items = Items.query.filter_by(restaurantId=id).order_by(desc(Items.dishtype)).all()
+	restaurant = Restaurants.query.filter_by(id=id).first()
+	return render_template("restaurantMenu.html",user=checkSession(),items=items,restaurant=restaurant)
+
+
+
+@app.route("/deletefromcart",methods=['POST'])
+def deleteFromCart():
+	if checkSession():
+		id = request.get_json()
+		user = session['email']
+		Cart.query.filter_by(user=user,itemId=id).delete()
+		try : 
+			db.session.commit()
+		except :
+			return ({'message' : 'Internal Server Error'})
+		return ({'message' : 'Item deleted from cart'})
+	return ({'message' : 'Unauthorized'})
 
 #--------------------------------RESTAURANT ROUTES--------------------------------------
 

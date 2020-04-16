@@ -1,6 +1,6 @@
 {% include "header.html" %}
 <body>
-  <div class="container col-6 offset-3 mt-3">
+  <div class="container col-6 offset-3 mt-3" style="min-height: 100vh;position: relative;">
   	<h2>Create Your Account</h2><hr>
 	<form method="post" action="/signup">
 		{% if error %}
@@ -36,3 +36,4 @@
 	</div>
 	</form>
   </div>
+  {% include "footer.html" %}
