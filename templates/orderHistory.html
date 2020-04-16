@@ -8,7 +8,7 @@
   {% endif %}
 {% endwith %}
 <div class="container mt-2" style="min-height: 100vh;position: relative;">
-
+		{% if items %}
 			{% for x in items %}
 				<div class="col-12 px-5">
 					{% if loop.changed(x[1]) %}
@@ -30,5 +30,9 @@
 				</div>
 				</div>
 			{% endfor %}
+		{% endif %}
+		{% if not items %}
+		<h1 class="text-center display-4"><i class="fas fa-shopping-cart text-danger display-4"></i> No Previous Orders</h1>
+		{% endif %}
 </div>
 {% include "footer.html" %}

@@ -93,7 +93,7 @@ def menu():
 @app.route("/customerlogin",methods=['POST','GET'])
 def login():
 	if checkSession() or checkRestaurant():
-		return redirect("/")
+		return redirect("/home")
 
 	if request.method == 'POST':
 		user = Users.query.filter_by(email=request.form['email']).first()
@@ -105,7 +105,7 @@ def login():
 			error = "Your password is incorrect"
 			return render_template("login.html",error=error)
 		session['email'] = request.form['email']
-		return redirect("/")
+		return redirect("/home")
 
 	return render_template("login.html")
 
