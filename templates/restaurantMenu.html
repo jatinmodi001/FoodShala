@@ -1,7 +1,7 @@
 {% include "header.html" %}
 
 <div class="container mt-3" style="min-height: 100vh;position: relative;">
-		<div class="card col-3 p-0 m-0">
+		<div class="card col-12 p-0 m-0">
   			<div class="card-body text-info">
     			<h1 class="card-title font-weight-bold text-capitalize">{{restaurant.name}}</h1>
     			<h5 class="card-subtitle">{{restaurant.email}}</h5>
@@ -10,6 +10,7 @@
     			<h6>Address : <i>{{restaurant.address}}</i></h6>
   			</div>
 	</div>
+	<h2 class="text-center bg-success text-light mt-4 rounded" style="font-family: Times New Roman">MENU</h2>
 	{% for x in items %}
 		{% if loop.changed(x.dishtype) %}
 			<h2 class=" text-center text-dark text-capitalize my-2"><span class="badge badge-warning"> {{x.dishtype}} </span></h2>
@@ -23,7 +24,6 @@
 				<img style="width:2.6ch;padding: 1px;background-color: white" src="{{ url_for('static',filename='images/nonVeg.png') }}">
 			{% endif %}
 			<span class="text-capitalize"><b>{{ x.name }}</b></span>
-			<span>(Restaurant : {{x.restaurantName}})</span>
 		</div>
 		<div>
 			<b>Rs. {{x.price}}/- </b>&ensp;

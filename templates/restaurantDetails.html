@@ -15,8 +15,8 @@
 
 		</div>		
 		<div class="card col-7 ml-3">
-  			<div class="card-body">
-  				<a class="text-light bg-info btn btn-primary">Order History</a>
+  			<div class="card-body p-5 mx-auto">
+  				<a class="text-light bg-info btn btn-primary" href="/totalorders">View Orders</a>
   			</div>
   			
 		</div>		
@@ -43,12 +43,18 @@
                     <h6>+91-{{restaurant.mobile}}</h6>
                     <hr/>
                 </div>
+                <div class="col-5 offset-1 form-group">
+                    <b style="font-size : 15px" class="text-info">ADDRESS</b>
+                    <h6>{{restaurant.address}}</h6>
+                    <hr/>
+                </div>
             </div>
+
           </div>
         </div>
 
 	</div>
-          <div class="mt-4 col-3 offset-4">
+          <div class="mt-4 col-2 offset-5">
           <a href="/logout" class="btn btn-block btn-danger">LOGOUT</a>
         </div>    
 

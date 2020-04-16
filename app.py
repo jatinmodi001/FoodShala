@@ -40,6 +40,8 @@ class Users(db.Model):
 	email = db.Column(db.String, primary_key = True)
 	password = db.Column(db.String)
 	mobile = db.Column(db.Integer)
+	address = db.Column(db.String)
+	veg = db.Column(db.Boolean)
 
 class Cart(db.Model):
 	id = db.Column(db.Integer,primary_key=True)
@@ -52,6 +54,7 @@ class OrderHistory(db.Model):
 	itemId = db.Column(db.Integer,ForeignKey('items.id'))
 	restaurantId = db.Column(db.Integer,ForeignKey('restaurants.id'))
 	date = db.Column(db.DateTime,default=datetime.utcnow)
+
 
 
 db.create_all()
@@ -74,10 +77,11 @@ def checkRestaurant():
 
 @app.route("/home")
 def home():
+	user = None
+	restaurants = Restaurants.query.all()
 	if checkSession():
 		user = Users.query.filter_by(email=session['email']).first()
-		restaurants = Restaurants.query.all()
-		return render_template("home.html",user=user,restaurants=restaurants)
+	return render_template("home.html",user=user,restaurants=restaurants)
 	return redirect("/customerlogin")
 
 @app.route("/menu",methods=['GET'])
@@ -114,8 +118,13 @@ def signup():
 		if user is None:
 			if request.form['password'] != request.form['confirmPassword']:
 				return render_template("signup.html",error="Password must match")
+			if len(request.form['mobile']) < 10:
+				return render_template("signup.html",error="Mobile Number Invalid")
+			veg = False
+			if request.form['category'] == 'veg':
+				veg = True
 			try:
-				newUser = Users(email=request.form['email'],password=request.form['password'],firstName=request.form['firstName'],lastName=request.form['lastName'],mobile=request.form['mobile'])
+				newUser = Users(email=request.form['email'],password=request.form['password'],firstName=request.form['firstName'],lastName=request.form['lastName'],mobile=request.form['mobile'],veg=veg,address=request.form['address'])
 				#print(newUser)
 				db.session.add(newUser)
 				db.session.commit()
