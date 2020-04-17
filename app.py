@@ -86,7 +86,7 @@ def home():
 
 @app.route("/menu",methods=['GET'])
 def menu():
-	items = Items.query.order_by(desc(Items.dishtype)).all()
+	items = Items.query.order_by(Items.dishtype).all()
 	return render_template("menu.html",items=items,user=checkSession())
 
 
@@ -217,7 +217,7 @@ def placeOrder():
 
 @app.route("/restaurant/<id>")
 def restaurantMenu(id):
-	items = Items.query.filter_by(restaurantId=id).order_by(desc(Items.dishtype)).all()
+	items = Items.query.filter_by(restaurantId=id).order_by(Items.dishtype).all()
 	restaurant = Restaurants.query.filter_by(id=id).first()
 	return render_template("restaurantMenu.html",user=checkSession(),items=items,restaurant=restaurant)
 

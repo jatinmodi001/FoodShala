@@ -14,14 +14,13 @@
 	<h1 class="mt-3 text-center font-weight-bold"><span class="badge badge-success">Restaurants</span></h1><hr>
 	<div class="row mt-4">
 		{% for x in restaurants %}
-		
-			<div class="card col-2 mx-auto"  onmouseover="this.style.backgroundColor='grey'" onmouseout="this.style.backgroundColor='white'">
-				<a href="/restaurant/{{ x.id }}" style="text-decoration: none;">
-	  			<div class="card-body text-dark">
-	    			<h2 class=" text-info text-capitalize">{{ x.name }}</h2>
-	    			<p>Address : {{ x.address }}</p>
-				</div>
-			</a>
+			<div class="card mx-auto" style="width: 10rem;">
+  				<img class="card-img-top" src="{{ url_for('static',filename='images/utensils.png') }}">
+  				<div class="card-body">
+    				<h5 class="card-title">{{ x.name }}</h5>
+    				<p class="card-text">Address : {{x.address}}</p>
+    				<a href="/restaurant/{{ x.id }}" class="btn btn-primary">Menu</a>
+  				</div>
 			</div>
 		{% endfor %}
 	</div>
