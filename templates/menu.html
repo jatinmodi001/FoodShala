@@ -3,7 +3,33 @@
 <div class="container mt-3 mb-5" style="min-height: 100vh;position: relative;">
 	<h1 class="text-center"><span class="badge badge-success">All Restaurants Menu</span></h1>
 	<hr>
-	{% for x in items %}
+	{% if not userVeg %}
+		<h2 class=" text-center text-dark text-capitalize my-2"><span class="badge badge-danger"> Non-Veg </span></h2>
+		{% for x in items if not x.veg %}
+			{% if loop.changed(x.dishtype) %}
+				<h2 class=" text-center text-dark text-capitalize my-2"><span class="badge badge-warning"> {{x.dishtype}} </span></h2>
+			{% endif %}
+			<div class="rounded mt-1 d-flex justify-content-between p-2 bg-dark text-light">
+				<div>
+					{% if x.veg %}
+						<img style="width:2.6ch;padding: 1px;background-color: white" src="{{ url_for('static',filename='images/vegg.png') }}">
+					{% endif %}
+					{% if not x.veg %}
+						<img style="width:2.6ch;padding: 1px;background-color: white" src="{{ url_for('static',filename='images/nonVeg.png') }}">
+					{% endif %}
+					<span class="text-capitalize"><b>{{ x.name }}</b></span>
+					<span class="text-capitalize">(Restaurant : {{x.restaurantName}})</span>
+				</div>
+				<div>
+					<b>Rs. {{x.price}}/- </b>&ensp;
+					<button title="Add to Cart" class="btn btn-sm border-warning btn-success" onclick="addToCartHandle({{ x.id }}, {{ x.restaurantId }})">Add To Cart <i class="fas fa-cart-plus"></i></button>
+				</div>
+			</div>
+		{% endfor %}
+		<hr>
+	{% endif %}
+	<h2 class=" text-center text-dark text-capitalize my-2"><span class="badge badge-success"> Veg </span></h2>
+	{% for x in items if x.veg %}
 		{% if loop.changed(x.dishtype) %}
 			<h2 class=" text-center text-dark text-capitalize my-2"><span class="badge badge-warning"> {{x.dishtype}} </span></h2>
 		{% endif %}
@@ -24,6 +50,31 @@
 		</div>
 	</div>
 	{% endfor %}
+	{% if userVeg %}
+	<hr>
+		<h2 class=" text-center text-dark text-capitalize my-2"><span class="badge badge-danger"> Non-Veg </span></h2>
+		{% for x in items if not x.veg %}
+		{% if loop.changed(x.dishtype) %}
+			<h2 class=" text-center text-dark text-capitalize my-2"><span class="badge badge-warning"> {{x.dishtype}} </span></h2>
+		{% endif %}
+	<div class="rounded mt-1 d-flex justify-content-between p-2 bg-dark text-light">
+		<div>
+			{% if x.veg %}
+				<img style="width:2.6ch;padding: 1px;background-color: white" src="{{ url_for('static',filename='images/vegg.png') }}">
+			{% endif %}
+			{% if not x.veg %}
+				<img style="width:2.6ch;padding: 1px;background-color: white" src="{{ url_for('static',filename='images/nonVeg.png') }}">
+			{% endif %}
+			<span class="text-capitalize"><b>{{ x.name }}</b></span>
+			<span class="text-capitalize">(Restaurant : {{x.restaurantName}})</span>
+		</div>
+		<div>
+			<b>Rs. {{x.price}}/- </b>&ensp;
+			<button title="Add to Cart" class="btn btn-sm border-warning btn-success" onclick="addToCartHandle({{ x.id }}, {{ x.restaurantId }})">Add To Cart <i class="fas fa-cart-plus"></i></button>
+		</div>
+	</div>
+		{% endfor %}
+	{% endif %}
 </div>
 {% include "footer.html" %}
 <script >

@@ -21,8 +21,16 @@
   		<tbody>
   			{% for x in items %}
   			<tr>
-  				<td>{{x.name}}</td>
-  				<td>{{x.price}}</td>
+  				<td>
+          {% if x.veg %}
+            <img style="width:2.5ch;padding: 1px;background-color: white" src="{{ url_for('static',filename='images/vegg.png') }}">
+          {% endif %}
+          {% if not x.veg %}
+            <img style="width:2.5ch;padding: 1px;background-color: white" src="{{ url_for('static',filename='images/nonVeg.png') }}">
+          {% endif %}
+
+          {{x.name}}</td>
+  				<td>Rs. {{x.price}}/-</td>
   				<td>{{x.dishtype}}</td>
   				<td><button onclick="deleteItem({{ x.id }})" class="btn btn-danger">Delete</button>
   			</tr>

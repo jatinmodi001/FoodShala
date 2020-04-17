@@ -87,8 +87,17 @@ def home():
 @app.route("/menu",methods=['GET'])
 def menu():
 	items = Items.query.order_by(Items.dishtype).all()
-	return render_template("menu.html",items=items,user=checkSession())
+	if checkSession():
+		user = Users.query.filter_by(email=session['email']).first()
 
+		# if user is non veg then sorting non veg items according to that
+
+		if not user.veg:
+			items.sort(key=get_key)
+	return render_template("menu.html",items=items,user=checkSession(),userVeg=user.veg)
+
+def get_key(obj):
+	return obj.veg
 
 @app.route("/customerlogin",methods=['POST','GET'])
 def login():
