@@ -396,7 +396,7 @@ def deleteItem():
 @app.route("/totalorders")
 def totalOrders():
 	if checkRestaurant():
-		orders = OrderHistory.query.filter_by(restaurantId=session['restaurant'])
+		orders = OrderHistory.query.filter_by(restaurantId=session['restaurant']).order_by(desc(OrderHistory.date))
 		total = []
 		for x in orders:
 			total.append((x,Users.query.filter_by(email=x.user).first(), Items.query.filter_by(id=x.itemId).first()))
