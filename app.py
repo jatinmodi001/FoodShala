@@ -75,6 +75,25 @@ def checkRestaurant():
 	return False
 
 
+#--------------------------------------COMMON ROUTES-------------------------------------
+
+@app.route("/")
+def index():
+	if checkSession():
+		user = Users.query.filter_by(email=session['email']).first()
+		return render_template("index.html",user=user)
+	if checkRestaurant():
+		return redirect('/restaurantDetails')
+	return render_template("index.html")
+
+@app.route("/logout")
+def logout():
+	session.pop("email",None)
+	session.pop("restaurant",None)
+	session.pop("restaurantName",None)
+	return redirect("/")
+
+
 #-------------------------------------------CUSTOMER ROUTES---------------------------------------
 
 @app.route("/home")
@@ -84,7 +103,6 @@ def home():
 	if checkSession():
 		user = Users.query.filter_by(email=session['email']).first()
 	return render_template("home.html",user=user,restaurants=restaurants)
-	return redirect("/customerlogin")
 
 @app.route("/menu",methods=['GET'])
 def menu():
@@ -93,13 +111,15 @@ def menu():
 	if checkSession():
 		user = Users.query.filter_by(email=session['email']).first()
 		veg = user.veg
-		# if user is non veg then sorting non veg items according to that
+
+		# if user is non veg then sorting the items so that non veg is at above in list
 
 		if not user.veg:
 			items.sort(key=get_key)
+
 	return render_template("menu.html",items=items,user=checkSession(),userVeg=veg)
 
-# function for sorting the items array according to veg/nonveg
+# key function for sorting the items array according to veg/nonveg
 def get_key(obj):
 	return obj.veg
 
@@ -138,10 +158,8 @@ def signup():
 				veg = True
 			try:
 				newUser = Users(email=request.form['email'],password=request.form['password'],firstName=request.form['firstName'],lastName=request.form['lastName'],mobile=request.form['mobile'],veg=veg,address=request.form['address'])
-				#print(newUser)
 				db.session.add(newUser)
 				db.session.commit()
-				#session['email'] = newUser.email
 				flash("Account Created")
 				return redirect("/customerlogin")
 			except:
@@ -156,8 +174,8 @@ def profile():
 		email = session['email']
 		user = Users.query.filter_by(email=email).first()
 		return render_template("profile.html",loggedIn=checkSession(),user=user)
-	else :
-		return redirect("/customerlogin")
+
+	return redirect("/customerlogin")
 
 
 @app.route("/add_to_cart",methods=['POST'])
@@ -184,21 +202,24 @@ def addToCart():
 @app.route("/usercart",methods=['GET'])
 def userCart():
 	if checkSession():
+		# getting cart items
 		cartItems = Cart.query.with_entities(Cart.itemId).filter_by(user=session['email']).all()
-		#items = Items.query.filter_by(id=cartItems[0][0]).all()
 		cart = []
+
+		# converting them into array
+
 		for x in cartItems:
 			cart.append(x[0])
 		items = Items.query.filter(Items.id.in_(cart)).all()
 		totalPrice = 0
 		for x in items:
 			totalPrice += x.price
-		#items = Items.query.filter_by(id in )
 		return render_template("userCart.html",items=items,user=checkSession(),totalPrice=totalPrice)
 	return redirect("/")
 
 @app.route("/orderhistory")
 def orderHistory():
+	# if user is logged in then returning order history otherwise redirect to root page
 	if checkSession():
 		orderhistory = OrderHistory.query.filter_by(user=session['email']).order_by(desc(OrderHistory.date)).all()
 		
@@ -207,6 +228,8 @@ def orderHistory():
 			temp = Items.query.filter_by(id=x.itemId).first()
 			items.append((temp,x.date.strftime("%d/%m/%Y, %H:%M:%S")))
 		return render_template("orderHistory.html",user=checkSession(),orders=orderhistory,items=items)
+	return redirect("/")
+
 
 @app.route("/placeorder",methods=['POST'])
 def placeOrder():
@@ -230,6 +253,8 @@ def placeOrder():
 
 @app.route("/restaurant/<id>")
 def restaurantMenu(id):
+	# getting menu from particular restaurant
+
 	items = Items.query.filter_by(restaurantId=id).order_by(Items.dishtype).all()
 	restaurant = Restaurants.query.filter_by(id=id).first()
 	return render_template("restaurantMenu.html",user=checkSession(),items=items,restaurant=restaurant)
@@ -316,11 +341,13 @@ def RestaurantSignup():
 			return redirect("/restaurantlogin")
 		else:
 			error = 'Restaurant with this email already exists'
+
 	return render_template("restaurantSignup.html",error=error)
 
 
 @app.route("/restaurantDetails")
 def admin():
+	# returning restaurant details
 	if checkRestaurant():
 		restaurant = Restaurants.query.filter_by(id=session['restaurant']).first()
 		return render_template("restaurantDetails.html",restaurant=restaurant)
@@ -328,15 +355,16 @@ def admin():
 
 @app.route("/items")
 def items():
+	# returning restaurant items if logged in
 	if checkRestaurant():
 		id = session['restaurant']
-		print('ID = ',id)
 		items = Items.query.filter_by(restaurantId=id).all()
 		return render_template("Items.html",items=items)
 	return redirect("/")
 
 @app.route("/restaurantlogin",methods=['POST','GET'])
 def restaurantLogin():
+	# if any user is logged in redirect to root page
 	if checkSession() or checkRestaurant():
 		return redirect('/')
 	if request.method == 'POST':
@@ -375,24 +403,6 @@ def totalOrders():
 		return render_template("totalOrders.html",orders=total)
 	return redirect("/")
 
-
-#--------------------------------------COMMON ROUTES-------------------------------------
-
-@app.route("/logout")
-def logout():
-	session.pop("email",None)
-	session.pop("restaurant",None)
-	return redirect("/")
-
-
-@app.route("/")
-def index():
-	if checkSession():
-		user = Users.query.filter_by(email=session['email']).first()
-		return render_template("index.html",user=user)
-	if checkRestaurant():
-		return redirect('/restaurantDetails')
-	return render_template("index.html")
 
 #---------------------------------------------------------------------------------------------
 if __name__ == "__main__":
