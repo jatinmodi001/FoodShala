@@ -3,10 +3,10 @@
 <div class="container" style="min-height: 100vh;position: relative;">
 		{% if user %}
 	<div class="row mt-4">
-		<div class="card col-10 offset-1">
+		<div class="card rounded-0 shadow  col-10 offset-1">
   			<div class="card-body">
-    			<h2 class="card-title text-info text-capitalize">Welcome, {{user.firstName}} {{user.lastName}}</h2>
-				<a href="/menu"><h6 class="text-dark">Feeling Hungry??? Let's Order Some food</h6></a>
+    			<h2 class="card-title  text-info text-capitalize">Welcome, {{user.firstName}} {{user.lastName}}</h2>
+				<a href="/menu"><h6 class="text-danger" style="text-decoration: none;">Feeling Hungry??? Let's Order Some food</h6></a>
 			</div>
 		</div>
 	</div>

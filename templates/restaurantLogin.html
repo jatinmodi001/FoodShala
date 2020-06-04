@@ -1,39 +1,47 @@
 {% include "header.html" %}
 
 <body>
-  <div class="container col-6 offset-3 mt-3" style="min-height: 100vh;position: relative;">
-	<div class="d-flex justify-content-between">
-  	<h2>Restaurant Login</h2>
-
-  	<a class="text-dark" href="/customerlogin">Login as Customer</a>
-  </div>
-  {% with messages = get_flashed_messages() %}
-  {% if messages %}
-    {% for message in messages %}
-      <div class="alert alert-success">{{ message }}</div>	
-    {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
-  <hr>
-	<form method="post" action="/restaurantlogin">
-		{% if error %}
-			<div class="alert alert-danger">{{error}}</div>
-		{% endif %}
-	  <div class="form-group">
-	    <label for="Username">Email Id</label>
-	    <input required class="form-control" name="email" id="email" type="email" aria-describedby="emailHelp" placeholder="Enter Email Id">
-	  </div>
-	  <div class="form-group">
-	    <label for="pass">Password</label>
-	    <input type="password" class="form-control" id="pass" name="password" placeholder="Password" required>
-	  </div>
-	  <div class="d-flex justify-content-between">
-	  <button type="submit" class="btn btn-primary" onclick="submitHandle()">Submit</button>
-	  <a href="/restaurantsignup" class="text-dark">Create Restaurant Account</a>
-	</div>
-	</form>
-  </div>
+	<div class="d-flex justify-content-center container">
+  		<div class=" col-4 col-sm-6 col-md-6 col-lg-4 mt-3" style="min-height: 100vh;position: relative;">
+  			<div class="border p-5 shadow rounded">
+				<div>
+	  				<h2 class="text-center mb-3"><b>Restaurant Login</b></h2>
+	  			</div>
+	  			{% with messages = get_flashed_messages() %}
+	  				{% if messages %}
+	    				{% for message in messages %}
+	      					<div class="alert alert-success">{{ message }}</div>	
+	    				{% endfor %}
+	  				{% endif %}
+				{% endwith %}
+	  			<hr>
+				<form method="post" action="/restaurantlogin">
+					{% if error %}
+						<div class="alert alert-danger">{{error}}</div>
+					{% endif %}
+		  			<div class="form-group">
+		    			<label for="Username"><b>Email address</b></label>
+		    			<input required class="form-control rounded-0" name="email" id="email" type="email" aria-describedby="emailHelp" placeholder="abc@example.com">
+		  			</div>
+		  			<div class="form-group">
+		    			<label for="pass"><b>Password</b></label>
+		    			<input type="password" class="form-control rounded-0" id="pass" name="password" required>
+		  			</div>
+		  			<div class="d-flex justify-content-between">
+		  				<button type="submit" class="btn btn-primary btn-block rounded-0" onclick="submitHandle()">Sign In <i class="fas fa-sign-in-alt"></i></button>
+					</div>
+					<div class="text-center mt-2"> 
+						<div>
+							<a href="/restaurantsignup" >Create Restaurant Account</a>
+						</div>
+						<div>
+							<a href="/customerlogin">Login as Customer</a>
+						</div>
+					</div>
+				</form>
+			</div>
+  		</div>
+  	</div>
 </body>
 	
 	{% include "footer.html" %}

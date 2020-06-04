@@ -1,40 +1,41 @@
 {% include "header.html" %}
 <body>
-  <div class="container col-6 offset-3 mt-3" style="min-height: 100vh;position: relative;">
-  	<h2>Create Your Account</h2><hr>
+	<div class="container d-flex justify-content-center" style="min-height: 100vh;position: relative;">
+  <div class="border shadow p-4 col-12 col-sm-8 col-md-6 col-lg-6 mt-3" >
+  	<h2 class="text-center"><b>Create Your Account</b></h2><hr>
 	<form method="post" action="/signup">
 		{% if error %}
 			<div class="alert alert-danger">{{error}}</div>
 		{% endif %}
 		<div class="row justify-content-center">
 			<div class="col-6">
-				<input type="text" name="firstName" class="form-control" placeholder="*First Name" required>
+				<input type="text" name="firstName" class="form-control rounded-0" placeholder="*First Name" required>
 			</div>
 			<div class="col-6">
-				<input type="text" name="lastName" class="form-control" placeholder="Last Name">
+				<input type="text" name="lastName" class="form-control rounded-0" placeholder="Last Name">
 			</div>
 		</div>
 		  <div class="row mt-3">
 		  	<div class="col-12">
-		    	<input type="email" required class="form-control" name="email" aria-describedby="emailHelp" placeholder="*Enter email">
+		    	<input type="email" required class="form-control rounded-0" name="email" aria-describedby="emailHelp" placeholder="*Enter email">
 			</div>
 		  </div>
 		  	<div class="row mt-3">
 		  	<div class="col-6">
-		    	<input type="password" required class="form-control" name="password" placeholder="*Enter password">
+		    	<input type="password" required class="form-control rounded-0" name="password" placeholder="*Enter password">
 			</div>
 			<div class="col-6">
-		    	<input type="password" required class="form-control" name="confirmPassword" placeholder="*Confirm password">
+		    	<input type="password" required class="form-control rounded-0" name="confirmPassword" placeholder="*Confirm password">
 			</div>
 		  </div>
 		  <div class="row my-3">
 		  	<div class="col-12">
-		    	<input type="number" required class="form-control" name="mobile" aria-describedby="emailHelp" placeholder="*Enter Mobile Number">
+		    	<input type="number" required class="form-control rounded-0" name="mobile" aria-describedby="emailHelp" placeholder="*Enter Mobile Number">
 			</div>
 		  </div>
 		  <div class="row my-3">
 		  	<div class="col-12">
-		  		<textarea name="address" class="form-control" required placeholder="*Address"></textarea>
+		  		<textarea name="address" class="form-control rounded-0" required placeholder="*Address"></textarea>
 		  	</div>
 		  </div>
 		  <div class="form-check">
@@ -47,8 +48,9 @@
 			    <input type="radio" class="form-check-input" value="nonVeg" name="category" required>Non-Veg
 			  </label>
 			</div>
-	  <button type="submit" class="btn btn-primary">Submit</button>
+	  <button type="submit" class="btn btn-primary rounded-0 btn-lg">Submit</button>
 	</div>
 	</form>
   </div>
+</div>
   {% include "footer.html" %}

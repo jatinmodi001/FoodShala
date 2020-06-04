@@ -3,11 +3,13 @@
 		<h1 class="text-center border display-4 text-danger font-weight-bold mb-4"><b>WELCOME TO FOODSHALA</b></h1>
 		<div class="text-center">
 		{% if not user %}
-		<a class="btn btn-primary text-light" href="/customerlogin">Login As Customer</a>
-		<a class="btn btn-success text-light" href="/restaurantlogin">Login As Restaurant</a>
+		<div>
+			<a class="btn btn-primary rounded-0 btn-lg text-light" href="/customerlogin">Login As Customer</a>
+			<a class="btn btn-success rounded-0 btn-lg text-light" href="/restaurantlogin">Login As Restaurant</a>
+		</div>
 		{% endif %}
 		{% if user %}
-		<a class="btn btn-primary text-light" href="/menu">Order Something</a>\
+		<a class="btn btn-lg btn-warning text-light" href="/menu">Order Something</a>\
 		{% endif %}
 	</div>
 	</div>
